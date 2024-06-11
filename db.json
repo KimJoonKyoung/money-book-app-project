@@ -15,75 +15,7 @@
       "type": "expense",
       "category": "식비",
       "amount": 10000,
-      "memo": "점심값",
-      "balance": ""
-    },
-    {
-      "id": 3,
-      "date": "2024-06-11",
-      "type": "expense",
-      "category": "교통비",
-      "amount": 5000,
-      "memo": "",
-      "balance": ""
-    },
-    {
-      "id": "ebc9",
-      "date": "",
-      "detail": "메모",
-      "type": "income",
-      "tag": "월급",
-      "amount": 11111
-    },
-    {
-      "id": "91c4",
-      "date": "",
-      "detail": "ㅁㅇㄴㄹ",
-      "type": "expense",
-      "tag": "주거통신",
-      "amount": 112344
-    },
-    {
-      "id": "2869",
-      "date": "",
-      "type": "income",
-      "category": "",
-      "amount": 15351,
-      "memo": "",
-      "tag": "용돈",
-      "detail": "하이"
-    },
-    {
-      "id": "dc69",
-      "date": "",
-      "detail": "ㅁㅁ",
-      "type": "income",
-      "tag": "기타",
-      "amount": 1532
-    },
-    {
-      "id": "24b8",
-      "date": "",
-      "memo": "야",
-      "type": "income",
-      "category": "이자",
-      "amount": 1411414
-    },
-    {
-      "id": "13b0",
-      "date": "",
-      "type": "expense",
-      "category": "교통",
-      "amount": 11214,
-      "memo": "막"
-    },
-    {
-      "id": "509b",
-      "date": "",
-      "type": "income",
-      "category": "이월",
-      "amount": 500,
-      "memo": "버"
+      "memo": "점심값"
     }
   ]
 }
