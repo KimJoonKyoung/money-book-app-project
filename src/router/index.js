@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from '../pages/HomeView.vue';
 import ListView from '../pages/ListView.vue';
 import SummaryView from '../pages/SummaryView.vue';
+import EditPage from '../pages/editpage.vue';
 
 const routes = [
   {
@@ -18,6 +19,11 @@ const routes = [
     path: '/summary',
     name: 'Summary',
     component: SummaryView,
+  },
+  {
+    path: '/edit',
+    name: 'Edit',
+    component: EditPage,
   },
 ];
 

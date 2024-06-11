@@ -1,4 +1,5 @@
 <template>
+  <h1 style="text-align: center">Summary</h1>
   <div class="container">
     <div class="date-range">
       <input type="date" v-model="startDate" />
@@ -6,7 +7,7 @@
       <input type="date" v-model="endDate" />
       <button @click="filterByDate">기간 확인</button>
     </div>
-    <h2 style="text-align: center">가계부</h2>
+
     <table id="incomeTable">
       <thead>
         <tr>

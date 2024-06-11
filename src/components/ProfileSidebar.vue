@@ -8,9 +8,21 @@
       />
       <h2>User Name</h2>
       <p>User introduction goes here.</p>
+      <!-- <div class="edit-icon" @click="goToEditPage">✏️</div> -->
+      <!-- 연필 이모티콘 클릭 이벤트 -->
     </div>
   </div>
 </template>
+
+<!-- <script>
+export default {
+  methods: {
+    goToEditPage() {
+      this.$router.push('/edit');
+    },
+  },
+};
+</script> -->
 
 <style scoped>
 .sidebar-right {

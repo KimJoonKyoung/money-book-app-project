@@ -2,11 +2,11 @@
   <div class="sidebar-left">
     <ul>
       <!-- 각 버튼에 Vue Router의 router-link를 사용하여 경로를 정의 -->
-      <router-link to="/" class="nav-link">Homepage</router-link>
+      <li><router-link to="/" class="nav-link">Homepage</router-link></li>
       <br />
-      <router-link to="/list" class="nav-link">List</router-link>
+      <li><router-link to="/list" class="nav-link">List</router-link></li>
       <br />
-      <router-link to="/summary" class="nav-link">Summary</router-link>
+      <li><router-link to="/summary" class="nav-link">Summary</router-link></li>
       <br />
     </ul>
   </div>

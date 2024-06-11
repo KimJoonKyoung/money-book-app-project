@@ -2,27 +2,27 @@
   <div>
     <h1>List View</h1>
     <table class="table-container">
-      <!-- 테이블 헤더 -->
       <thead>
         <tr>
           <th>날짜</th>
           <th>타입</th>
           <th>카테고리</th>
-          <th>상세 카테고리</th>
-          <th>금액</th>
           <th>메모</th>
+          <th>금액</th>
+          <th>잔액</th>
           <th>동작</th>
         </tr>
       </thead>
-      <!-- 테이블 내용 -->
       <tbody>
         <tr v-for="(item, index) in displayedItems" :key="item.id">
           <td>{{ item.date }}</td>
           <td>{{ item.type }}</td>
           <td>{{ item.category }}</td>
-          <td>{{ item.detailCategory }}</td>
-          <td>{{ item.amount }}</td>
           <td>{{ item.memo }}</td>
+          <!-- <td>{{ item.amount }}</td> -->
+          <td>{{ formatNumber(item.amount) }}</td>
+          <td>{{ formatNumber(item.balance) }}</td>
+          <!-- <td>{{ item.balance }}</td> -->
           <td>
             <button @click="editItem(item.id)">편집</button>
             <button @click="deleteItem(item.id)">삭제</button>
@@ -30,7 +30,6 @@
         </tr>
       </tbody>
     </table>
-    <!-- 페이지네이션 -->
     <div class="pagination">
       <button @click="prevPage" :disabled="currentPage === 1">이전</button>
       <span>Page {{ currentPage }} of {{ totalPages }}</span>
@@ -47,19 +46,17 @@ import axios from 'axios';
 export default {
   data() {
     return {
-      items: [], // 전체 항목
-      itemsPerPage: 10, // 페이지당 항목 수
-      currentPage: 1, // 현재 페이지
+      items: [],
+      itemsPerPage: 10,
+      currentPage: 1,
     };
   },
   computed: {
-    // 현재 페이지에 표시되는 항목
     displayedItems() {
       const startIndex = (this.currentPage - 1) * this.itemsPerPage;
       const endIndex = startIndex + this.itemsPerPage;
       return this.items.slice(startIndex, endIndex);
     },
-    // 전체 페이지 수
     totalPages() {
       return Math.ceil(this.items.length / this.itemsPerPage);
     },
@@ -70,21 +67,40 @@ export default {
   methods: {
     fetchData() {
       axios
-        .get('db.json')
+        .get('http://localhost:3000/budget')
         .then((response) => {
-          this.items = response.data.budget;
+          this.items = response.data;
+          this.updateBalances(); // 잔액을 가져올 때마다 재계산
         })
         .catch((error) => {
           console.error('Error fetching data:', error);
         });
     },
+
+    updateBalances() {
+      let balance = 0;
+      this.items.forEach((item) => {
+        if (item.type === 'income') {
+          balance += item.amount;
+        } else if (item.type === 'expense') {
+          balance -= item.amount;
+        }
+        item.balance = balance;
+      });
+    },
     editItem(id) {
-      // 편집 버튼 클릭 시 실행되는 로직 추가
       console.log('Edit item with id:', id);
     },
     deleteItem(id) {
-      // 삭제 버튼 클릭 시 실행되는 로직 추가
-      console.log('Delete item with id:', id);
+      axios
+        .delete(`http://localhost:3000/budget/${id}`)
+        .then(() => {
+          this.items = this.items.filter((item) => item.id !== id);
+          this.updateBalances();
+        })
+        .catch((error) => {
+          console.error('Error deleting item:', error);
+        });
     },
     prevPage() {
       if (this.currentPage > 1) {
@@ -95,6 +111,10 @@ export default {
       if (this.currentPage < this.totalPages) {
         this.currentPage++;
       }
+    },
+    formatNumber(number) {
+      // 숫자 포맷팅하여 쉼표 추가
+      return number.toLocaleString();
     },
   },
 };
