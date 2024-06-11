@@ -16,6 +16,14 @@
       "category": "식비",
       "amount": 10000,
       "memo": "점심값"
+    },
+    {
+      "id": "25dd",
+      "date": "2024-06-06",
+      "type": "expense",
+      "category": "식비",
+      "amount": 5000,
+      "memo": "밥"
     }
   ]
 }

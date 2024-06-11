@@ -1,44 +1,40 @@
 <template>
   <h1 style="text-align: center">Summary</h1>
   <div class="container">
-    <div class="date-range">
-      <input type="date" v-model="startDate" />
-      <span>-</span>
-      <input type="date" v-model="endDate" />
-      <button @click="filterByDate">기간 확인</button>
-    </div>
-
-    <table id="incomeTable">
+    <!-- 기존 내용은 그대로 유지 -->
+    <!-- 수입 항목 표시 -->
+    <table class="summary-table">
       <thead>
         <tr>
-          <th @click="sortTable('incomeTable', 0)">날짜</th>
-          <th @click="sortTable('incomeTable', 1)">사용내역</th>
-          <th @click="sortTable('incomeTable', 2)">금액</th>
-          <th @click="sortTable('incomeTable', 3)">분류</th>
+          <th>날짜</th>
+          <th>사용내역</th>
+          <th>금액</th>
+          <th>분류</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="(item, index) in incomeItems" :key="index">
           <td>{{ item.date }}</td>
-          <td>{{ item.description }}</td>
+          <td>{{ item.memo }}</td>
           <td>{{ item.amount }}</td>
           <td>{{ item.category }}</td>
         </tr>
       </tbody>
     </table>
-    <table id="expenseTable">
+    <!-- 지출 항목 표시 -->
+    <table class="summary-table">
       <thead>
         <tr>
-          <th @click="sortTable('expenseTable', 0)">날짜</th>
-          <th @click="sortTable('expenseTable', 1)">사용내역</th>
-          <th @click="sortTable('expenseTable', 2)">금액</th>
-          <th @click="sortTable('expenseTable', 3)">분류</th>
+          <th>날짜</th>
+          <th>사용내역</th>
+          <th>금액</th>
+          <th>분류</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="(item, index) in expenseItems" :key="index">
           <td>{{ item.date }}</td>
-          <td>{{ item.description }}</td>
+          <td>{{ item.memo }}</td>
           <td>{{ item.amount }}</td>
           <td>{{ item.category }}</td>
         </tr>
@@ -47,6 +43,7 @@
   </div>
 </template>
 <script>
+import axios from 'axios';
 export default {
   data() {
     return {
@@ -56,31 +53,40 @@ export default {
       expenseItems: [],
     };
   },
+  created() {
+    this.fetchTransactions();
+  },
   methods: {
-    addIncome() {
-      this.addToTable('incomeItems');
+    fetchTransactions() {
+      axios.get('http://localhost:3000/budget').then((response) => {
+        this.incomeItems = response.data.filter(
+          (item) => item.type === 'income'
+        );
+        this.expenseItems = response.data.filter(
+          (item) => item.type === 'expense'
+        );
+      });
     },
-    addExpense() {
-      this.addToTable('expenseItems');
-    },
-    addToTable(tableId) {
-      // 추가 기능 구현
-    },
-    editRow(row) {
-      // 수정 기능 구현
-    },
-    saveEdit(button, tableId) {
-      // 저장 기능 구현
-    },
-    filterByDate() {
-      // 날짜 필터링 기능 구현
-    },
-    sortTable(tableId, column) {
-      // 테이블 정렬 기능 구현
-    },
+    // 나머지 메소드들은 그대로 유지
   },
 };
 </script>
 <style>
-/* 스타일 코드는 그대로 사용할 수 있습니다. */
+.summary-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+.summary-table th,
+.summary-table td {
+  border: 1px solid #dddddd;
+  padding: 8px;
+  text-align: center;
+}
+.summary-table th {
+  background-color: #f2f2f2;
+}
+.summary-table tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
 </style>

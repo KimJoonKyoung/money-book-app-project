@@ -1,24 +1,7 @@
 <template>
   <div>
-    <h1>Home View</h1>
-    <div class="dropdown">
-      <label for="year">Select Year:</label>
-      <select v-model="selectedYear" id="year" class="dropdown-select">
-        <option v-for="year in years" :key="year" :value="year">
-          {{ year }}
-        </option>
-      </select>
-      <label for="month">Select Month:</label>
-      <select v-model="selectedMonth" id="month" class="dropdown-select">
-        <option
-          v-for="(month, index) in months"
-          :key="index"
-          :value="index + 1"
-        >
-          {{ month }}
-        </option>
-      </select>
-    </div>
+    <h1>쌓이월드</h1>
+
     <!-- CalendarComponent를 먼저 import하여 사용 -->
     <CalendarComponent :year="selectedYear" :month="selectedMonth" />
   </div>
