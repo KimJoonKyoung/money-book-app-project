@@ -3,7 +3,7 @@
     <ul>
       <!-- 각 버튼에 Vue Router의 router-link를 사용하여 경로를 정의 -->
       <li>
-        <router-link to="/" class="nav-link"
+        <router-link to="/home" class="nav-link"
           ><i class="fa-solid fa-house"></i> Home</router-link
         >
       </li>
