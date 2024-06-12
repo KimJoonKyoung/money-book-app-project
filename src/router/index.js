@@ -5,9 +5,17 @@ import SummaryView from '../pages/SummaryView.vue';
 import EditPage from '../pages/editpage.vue';
 import UpdatePage from '../pages/UpdatePage.vue';
 import GraphView from '@/pages/GraphView.vue';
+import LoadingView from '../pages/LoadingView.vue';
+import LoginPage from '../pages/LoginPage.vue';
 const routes = [
+  { path: '/', name: 'Loading', component: LoadingView },
   {
-    path: '/',
+    path: '/login',
+    name: 'Login',
+    component: LoginPage,
+  },
+  {
+    path: '/home',
     name: 'home',
     component: HomeView,
   },
