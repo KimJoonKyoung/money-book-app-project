@@ -1,7 +1,5 @@
 <template>
   <div>
-    <h1>쌓이월드</h1>
-
     <!-- CalendarComponent를 먼저 import하여 사용 -->
     <CalendarComponent :year="selectedYear" :month="selectedMonth" />
   </div>

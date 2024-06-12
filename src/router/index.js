@@ -3,6 +3,7 @@ import HomeView from '../pages/HomeView.vue';
 import ListView from '../pages/ListView.vue';
 import SummaryView from '../pages/SummaryView.vue';
 import EditPage from '../pages/editpage.vue';
+import UpdatePage from '../pages/UpdatePage.vue';
 
 const routes = [
   {
@@ -24,6 +25,11 @@ const routes = [
     path: '/edit',
     name: 'Edit',
     component: EditPage,
+  },
+  {
+    path: '/update/:id', // 새로운 라우트
+    name: 'Update',
+    component: UpdatePage,
   },
 ];
 
