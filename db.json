@@ -1,8 +1,8 @@
 {
   "budget": [
     {
-      "id": 1,
-      "date": "2024-06-09",
+      "id": "1",
+      "date": "2024-06-04",
       "type": "income",
       "category": "월급",
       "amount": 3000000,
@@ -10,7 +10,7 @@
       "balance": ""
     },
     {
-      "id": 2,
+      "id": "2",
       "date": "2024-06-10",
       "type": "expense",
       "category": "식비",
@@ -19,11 +19,75 @@
     },
     {
       "id": "25dd",
-      "date": "2024-06-06",
+      "date": "2024-06-22",
       "type": "expense",
       "category": "식비",
       "amount": 5000,
-      "memo": "밥"
+      "memo": "저녁값"
+    },
+    {
+      "id": "91e6",
+      "date": "2024-06-03",
+      "type": "income",
+      "category": "이월",
+      "amount": 2000000,
+      "memo": "5월 이월"
+    },
+    {
+      "id": "8498",
+      "date": "2024-06-20",
+      "type": "expense",
+      "category": "주거,통신",
+      "amount": 300000,
+      "memo": "월세"
+    },
+    {
+      "id": "58c4",
+      "date": "2024-06-21",
+      "type": "expense",
+      "category": "주거,통신",
+      "amount": 50000,
+      "memo": "통신비"
+    },
+    {
+      "id": "6949",
+      "date": "2024-06-18",
+      "type": "income",
+      "category": "기타",
+      "amount": 500,
+      "memo": "주움"
+    },
+    {
+      "id": "7db4",
+      "date": "2024-06-27",
+      "type": "income",
+      "category": "용돈",
+      "amount": 5000,
+      "memo": "용돈"
+    },
+    {
+      "id": "704a",
+      "date": "2024-06-12",
+      "type": "expense",
+      "category": "적금",
+      "amount": 500000,
+      "memo": "적금"
+    },
+    {
+      "id": "818f",
+      "date": "2024-06-09",
+      "type": "income",
+      "category": "용돈",
+      "amount": 3000,
+      "memo": "용돈"
+    },
+    {
+      "id": "949b",
+      "date": "2024-06-16",
+      "type": "expense",
+      "category": "쇼핑",
+      "amount": 1000,
+      "memo": "구매"
     }
   ]
 }
