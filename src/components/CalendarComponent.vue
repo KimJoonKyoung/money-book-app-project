@@ -224,7 +224,7 @@ th {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
+  height: 50%;
 }
 .expenses {
   color: red; /* 지출을 빨간색으로 설정 */
@@ -233,6 +233,6 @@ th {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
+  height: 0;
 }
 </style>

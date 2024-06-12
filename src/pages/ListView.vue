@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>List View</h1>
-
+    <br />
     <div>
       <label for="startDateFilter">시작 날짜:</label>
       <input type="date" id="startDateFilter" v-model="startDate" />
@@ -23,7 +23,7 @@
         </option>
       </select>
     </div>
-
+    <br />
     <table class="table-container">
       <thead>
         <tr>
@@ -53,11 +53,31 @@
         </tr>
       </tbody>
     </table>
+    <br />
+    <button @click="exportToExcel">엑셀로 내보내기</button>
+    <input type="text" v-model="excelFileName" placeholder="파일 이름" /><br />
     <div class="pagination">
-      <button @click="prevPage" :disabled="currentPage === 1">이전</button>
-      <span>Page {{ currentPage }} of {{ totalPages }}</span>
+      <!-- 처음 페이지로 이동하는 버튼 -->
+      <button @click="goToFirstPage" :disabled="currentPage === 1"><<</button>
+      <!-- 이전 페이지로 이동하는 버튼 -->
+      <button @click="prevPage" :disabled="currentPage === 1"><</button>
+      <!-- 페이지 번호 표시 -->
+      <span v-for="pageNumber in visiblePageNumbers" :key="pageNumber">
+        <button
+          @click="goToPage(pageNumber)"
+          :class="{ active: currentPage === pageNumber }"
+          class="page-number"
+        >
+          {{ pageNumber }}
+        </button>
+      </span>
+      <!-- 다음 페이지로 이동하는 버튼 -->
       <button @click="nextPage" :disabled="currentPage === totalPages">
-        다음
+        >
+      </button>
+      <!-- 마지막 페이지로 이동하는 버튼 -->
+      <button @click="goToLastPage" :disabled="currentPage === totalPages">
+        >>
       </button>
     </div>
   </div>
@@ -65,6 +85,7 @@
 
 <script>
 import axios from 'axios';
+import * as XLSX from 'xlsx';
 
 export default {
   data() {
@@ -87,6 +108,7 @@ export default {
         '적금',
         '기타',
       ],
+      excelFileName: '',
     };
   },
   computed: {
@@ -146,6 +168,25 @@ export default {
         : this.selectedType === 'expense'
         ? this.expenseCategories
         : [];
+    },
+    visiblePageNumbers() {
+      const maxVisiblePages = 5; // 표시되는 최대 페이지 번호 개수
+      const totalVisiblePages = Math.min(this.totalPages, maxVisiblePages); // 표시되는 총 페이지 개수
+      const firstVisiblePage = Math.max(
+        this.currentPage - Math.floor(totalVisiblePages / 2),
+        1
+      ); // 첫 번째로 표시되는 페이지 번호
+      const lastVisiblePage = Math.min(
+        firstVisiblePage + totalVisiblePages - 1,
+        this.totalPages
+      ); // 마지막으로 표시되는 페이지 번호
+
+      const visiblePages = [];
+      for (let i = firstVisiblePage; i <= lastVisiblePage; i++) {
+        visiblePages.push(i);
+      }
+
+      return visiblePages;
     },
   },
   watch: {
@@ -237,6 +278,34 @@ export default {
     formatNumber(value) {
       return value.toLocaleString();
     },
+    goToPage(pageNumber) {
+      if (pageNumber >= 1 && pageNumber <= this.totalPages) {
+        this.currentPage = pageNumber;
+      }
+    },
+    goToFirstPage() {
+      this.currentPage = 1;
+    },
+
+    goToLastPage() {
+      this.currentPage = this.totalPages;
+    },
+    exportToExcel() {
+      // 필터링된 항목을 엑셀 파일로 내보내기
+      const filteredData = this.filteredItems.map((item) => {
+        const { id, ...rest } = item; // id 값을 제외한 나머지 속성들을 추출
+        return rest; // id 값이 제외된 객체 반환
+      });
+      const worksheet = XLSX.utils.json_to_sheet(filteredData);
+      const workbook = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(workbook, worksheet, 'Filtered Data');
+      XLSX.writeFile(
+        workbook,
+        this.excelFileName.endsWith('.xlsx')
+          ? this.excelFileName
+          : `${this.excelFileName}.xlsx`
+      );
+    },
   },
   created() {
     this.fetchData();
@@ -268,9 +337,24 @@ export default {
 .pagination {
   margin-top: 20px;
   text-align: center;
+  justify-content: center;
 }
 
 .pagination button {
   margin: 0 5px;
+}
+.page-number {
+  background-color: #ffffff; /* 페이지 번호 배경색 */
+  border: 1px solid #ccc; /* 페이지 번호 테두리 */
+  color: #333; /* 페이지 번호 글자색 */
+  padding: 5px 10px; /* 페이지 번호 패딩 */
+  margin: 0 2px; /* 페이지 번호 간격 */
+  cursor: pointer; /* 페이지 번호 커서 */
+}
+
+.page-number.active {
+  background-color: #007bff; /* 현재 페이지 배경색 */
+  color: #ffffff; /* 현재 페이지 글자색 */
+  border-color: #007bff; /* 현재 페이지 테두리 */
 }
 </style>

@@ -88,6 +88,86 @@
       "category": "쇼핑",
       "amount": 1000,
       "memo": "구매"
+    },
+    {
+      "id": "a516",
+      "date": "2024-06-12",
+      "type": "expense",
+      "category": "적금",
+      "amount": 3000,
+      "memo": "저금통"
+    },
+    {
+      "id": "33e7",
+      "date": "2024-06-12",
+      "type": "expense",
+      "category": "쇼핑",
+      "amount": 7000,
+      "memo": "연필"
+    },
+    {
+      "id": "4485",
+      "date": "2024-06-19",
+      "type": "income",
+      "category": "용돈",
+      "amount": 1100,
+      "memo": "심부름값"
+    },
+    {
+      "id": "6cbf",
+      "date": "2024-06-14",
+      "type": "expense",
+      "category": "식비",
+      "amount": 3300,
+      "memo": "간식"
+    },
+    {
+      "id": "90e3",
+      "date": "2024-06-21",
+      "type": "income",
+      "category": "이자",
+      "amount": 134414,
+      "memo": "수익"
+    },
+    {
+      "id": "c393",
+      "date": "2024-06-22",
+      "type": "income",
+      "category": "기타",
+      "amount": 31400,
+      "memo": "수당"
+    },
+    {
+      "id": "a6ab",
+      "date": "2024-06-23",
+      "type": "expense",
+      "category": "교통",
+      "amount": 7890,
+      "memo": "택시비"
+    },
+    {
+      "id": "0d73",
+      "date": "2024-06-21",
+      "type": "expense",
+      "category": "주거통신",
+      "amount": 76430,
+      "memo": "관리비"
+    },
+    {
+      "id": "ebff",
+      "date": "2024-06-21",
+      "type": "income",
+      "category": "월급",
+      "amount": 90900,
+      "memo": "보너스"
+    },
+    {
+      "id": "80ac",
+      "date": "2024-06-25",
+      "type": "expense",
+      "category": "적금",
+      "amount": 35000,
+      "memo": "6"
     }
   ]
 }
