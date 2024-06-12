@@ -9,14 +9,22 @@
   <div class="sidebar-right">
     <div class="profile">
       <img
-        src="@/assets/profile.png"
+        :src="selectedProfile"
         alt="Profile Picture"
         class="profile-pic"
+        @click="openProfileImageOptions"
       />
-      <h2>User Name</h2>
-      <p>User introduction goes here.</p>
-      <!-- <div class="edit-icon" @click="goToEditPage">✏️</div> -->
-      <!-- 연필 이모티콘 클릭 이벤트 -->
+      <h2>{{ userStore.username }}</h2>
+      <h3 class="sub-text">프로필을 누르면<br />캐릭터를 바꿀 수 있어요!</h3>
+      <div v-if="showImageOptions || !selectedProfile" class="image-options">
+        <img
+          v-for="(image, index) in profileCandidates"
+          :src="image"
+          :key="index"
+          :alt="'Profile Image ' + (index + 1)"
+          @click="changeProfileImage(image)"
+        />
+      </div>
     </div>
     <div class="fixed-button-container-bottom">
       <router-link to="/edit">
@@ -28,15 +36,34 @@
   </div>
 </template>
 
-<!-- <script>
-export default {
-  methods: {
-    goToEditPage() {
-      this.$router.push('/edit');
-    },
-  },
+<script setup>
+import { ref, onMounted } from 'vue';
+import { useUserStore } from '@/stores';
+const userStore = useUserStore();
+const defaultProfile = '/assets/coli.png'; // 기본 프로필 이미지
+const profileCandidates = [
+  // 프로필 후보 이미지
+  '/assets/argar.png',
+  '/assets/runa.png',
+  '/assets/coli.png',
+  '/assets/bibi.png',
+  '/assets/ramu.png',
+];
+const selectedProfile = ref(defaultProfile); // 선택된 프로필 이미지
+const showImageOptions = ref(false); // 이미지 선택 옵션 보여주기 여부
+// 프로필 이미지 변경 함수
+const changeProfileImage = (image) => {
+  selectedProfile.value = image;
+  showImageOptions.value = false;
 };
-</script> -->
+// 프로필 이미지 선택 옵션 열기/닫기 함수
+const openProfileImageOptions = () => {
+  showImageOptions.value = !showImageOptions.value;
+};
+onMounted(async () => {
+  await userStore.fetchUsername();
+});
+</script>
 
 <style scoped>
 .sidebar-right {
@@ -51,9 +78,9 @@ export default {
   align-items: center; /* 중앙 정렬 */
   position: fixed;
   right: 0;
-  /* top: 0; */
+
   box-sizing: border-box;
-  /* overflow-y: auto; */
+
   z-index: 1;
 }
 
@@ -68,8 +95,22 @@ export default {
   height: 100px;
   border-radius: 50%;
   margin-bottom: 10px;
+  cursor: pointer;
+  border: 2px solid white; /* 흰색 테두리 추가 */
 }
-
+.image-options {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 10px;
+}
+.image-options img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin: 5px;
+  cursor: pointer;
+}
 .fixed-button-container-bottom {
   width: 100%;
   display: flex;
@@ -89,5 +130,9 @@ export default {
 
 .add-button:hover {
   background-color: #0056b3;
+}
+.sub-text {
+  font-size: 10px;
+  color: gray;
 }
 </style>
