@@ -4,7 +4,7 @@ import ListView from '../pages/ListView.vue';
 import SummaryView from '../pages/SummaryView.vue';
 import EditPage from '../pages/editpage.vue';
 import UpdatePage from '../pages/UpdatePage.vue';
-
+import GraphView from '@/pages/GraphView.vue';
 const routes = [
   {
     path: '/',
@@ -30,6 +30,11 @@ const routes = [
     path: '/update/:id', // 새로운 라우트
     name: 'Update',
     component: UpdatePage,
+  },
+  {
+    path: '/Graph', // 수정: 경로를 /Graph로 변경
+    name: 'Graph', // 수정: 라우트 이름 수정
+    component: GraphView,
   },
 ];
 

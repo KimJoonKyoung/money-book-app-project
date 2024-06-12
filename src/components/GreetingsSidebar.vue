@@ -2,11 +2,27 @@
   <div class="sidebar-left">
     <ul>
       <!-- 각 버튼에 Vue Router의 router-link를 사용하여 경로를 정의 -->
-      <li><router-link to="/" class="nav-link">Homepage</router-link></li>
+      <li>
+        <router-link to="/" class="nav-link"
+          ><i class="fa-solid fa-house"></i> Home</router-link
+        >
+      </li>
       <br />
-      <li><router-link to="/list" class="nav-link">List</router-link></li>
+      <li>
+        <router-link to="/list" class="nav-link"
+          ><i class="fa-solid fa-list"></i> List</router-link
+        >
+      </li>
       <br />
-      <li><router-link to="/summary" class="nav-link">Summary</router-link></li>
+      <li>
+        <router-link to="/summary" class="nav-link"
+          ><i class="fa-solid fa-clipboard-list"></i> Summary</router-link
+        >
+      </li>
+      <br />
+      <li>
+        <router-link to="/Graph" class="nav-link">Graph</router-link>
+      </li>
       <br />
     </ul>
   </div>
@@ -40,6 +56,7 @@ export default {
 <style scoped>
 .sidebar-left {
   width: 200px;
+  height: 100vh;
   background-color: #ffcc00;
   color: black;
   padding: 20px;
@@ -47,6 +64,11 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  position: fixed;
+  left: 0;
+  /* top: 0; */
+  box-sizing: border-box;
+  z-index: 2;
 }
 
 .sidebar-left ul {
