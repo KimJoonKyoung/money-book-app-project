@@ -66,7 +66,6 @@ export default {
   align-items: center;
   position: fixed;
   left: 0;
-  /* top: 0; */
   box-sizing: border-box;
   z-index: 2;
 }

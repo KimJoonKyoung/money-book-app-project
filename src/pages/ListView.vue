@@ -1,21 +1,25 @@
 <template>
-  <div>
+  <div class="container">
     <h1>List View</h1>
     <br />
-    <div>
-      <label for="startDateFilter">시작 날짜:</label>
-      <input type="date" id="startDateFilter" v-model="startDate" />
+    <div id="tablefilter">
+      <label for="startDateFilter">시작 날짜:</label>&nbsp;
+      <input type="date" id="startDateFilter" v-model="startDate" />&nbsp;&nbsp;
 
-      <label for="endDateFilter">종료 날짜:</label>
-      <input type="date" id="endDateFilter" v-model="endDate" />
+      <label for="endDateFilter">종료 날짜:</label>&nbsp;
+      <input
+        type="date"
+        id="endDateFilter"
+        v-model="endDate"
+      />&nbsp;&nbsp;&nbsp;
 
-      <label for="typeFilter">타입:</label>
+      <label for="typeFilter">타입:</label>&nbsp;
       <select id="typeFilter" v-model="selectedType" @change="updateCategories">
         <option value="">전체</option>
-        <option v-for="type in types" :value="type">{{ type }}</option>
-      </select>
+        <option v-for="type in types" :value="type">{{ type }}</option></select
+      >&nbsp;&nbsp;
 
-      <label for="categoryFilter">카테고리:</label>
+      <label for="categoryFilter">카테고리:</label>&nbsp;
       <select id="categoryFilter" v-model="selectedCategory">
         <option value="">전체</option>
         <option v-for="category in filteredCategories" :value="category">
@@ -24,38 +28,45 @@
       </select>
     </div>
     <br />
-    <table class="table-container">
-      <thead>
-        <tr>
-          <th>날짜</th>
-          <th>타입</th>
-          <th>카테고리</th>
-          <th>메모</th>
-          <th>금액</th>
-          <th>잔액</th>
-          <th>동작</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(item, index) in displayedItems" :key="item.id">
-          <td>{{ item.date }}</td>
-          <td>{{ item.type }}</td>
-          <td>{{ item.category }}</td>
-          <td>{{ item.memo }}</td>
-          <td>{{ formatNumber(item.amount) }}</td>
-          <td>{{ formatNumber(item.balance) }}</td>
-          <td>
-            <router-link :to="{ name: 'Update', params: { id: item.id } }">
-              <button>편집</button> </router-link
-            >&nbsp;
-            <button @click="deleteItem(item.id)">삭제</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="table-wrapper">
+      <table class="table-container">
+        <thead>
+          <tr>
+            <th>날짜</th>
+            <th>타입</th>
+            <th>카테고리</th>
+            <th>메모</th>
+            <th>금액</th>
+            <th>잔액</th>
+            <th>동작</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(item, index) in displayedItems" :key="item.id">
+            <td>{{ item.date }}</td>
+            <td>{{ item.type === 'income' ? '수입' : '지출' }}</td>
+            <td>{{ item.category }}</td>
+            <td>{{ item.memo }}</td>
+            <td>{{ formatNumber(item.amount) }}</td>
+            <td>{{ formatNumber(item.balance) }}</td>
+            <td>
+              <div class="button-container">
+                <router-link :to="{ name: 'Update', params: { id: item.id } }">
+                  <button>편집</button>
+                </router-link>
+                <button @click="deleteItem(item.id)">삭제</button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
     <br />
-    <button @click="exportToExcel">엑셀로 내보내기</button>
-    <input type="text" v-model="excelFileName" placeholder="파일 이름" /><br />
+    <div class="excel-button">
+      <button @click="exportToExcel">엑셀로 내보내기</button>&nbsp;
+      <input type="text" v-model="excelFileName" placeholder="파일 이름" />
+    </div>
+    <br />
     <div class="pagination">
       <!-- 처음 페이지로 이동하는 버튼 -->
       <button @click="goToFirstPage" :disabled="currentPage === 1"><<</button>
@@ -102,7 +113,7 @@ export default {
       expenseCategories: [
         '식비',
         '교통',
-        '주거,통신',
+        '주거, 통신',
         '문화생활',
         '쇼핑',
         '적금',
@@ -314,6 +325,22 @@ export default {
 </script>
 
 <style scoped>
+.container {
+  display: flex;
+  flex-direction: column; /* 자식 요소들을 세로로 정렬하기 위해 */
+  align-items: center; /* 자식 요소들을 수직으로 가운데 정렬 */
+}
+
+.tablefilter,
+.excel-button {
+  margin-bottom: 20px; /* 각 요소들 사이의 간격을 조절합니다. */
+}
+
+.table-wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
 .table-container {
   width: 100%;
   border-collapse: collapse;
@@ -325,9 +352,10 @@ export default {
   padding: 8px;
 }
 
-.table-container th {
+.table-container th,
+.table-container td {
   background-color: #f2f2f2;
-  text-align: left;
+  text-align: center;
 }
 
 .table-container tr:nth-child(even) {
@@ -356,5 +384,10 @@ export default {
   background-color: #007bff; /* 현재 페이지 배경색 */
   color: #ffffff; /* 현재 페이지 글자색 */
   border-color: #007bff; /* 현재 페이지 테두리 */
+}
+.button-container {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
 }
 </style>

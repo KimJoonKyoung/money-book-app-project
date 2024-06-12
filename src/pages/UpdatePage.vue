@@ -66,7 +66,7 @@ export default {
       expenseCategories: [
         '식비',
         '교통',
-        '주거통신',
+        '주거, 통신',
         '문화생활',
         '쇼핑',
         '적금',
@@ -77,12 +77,19 @@ export default {
   },
   created() {
     this.fetchTransaction();
+    this.updateCategories();
   },
   methods: {
     fetchTransaction() {
       const id = this.$route.params.id;
       axios.get(`http://localhost:3000/budget/${id}`).then((response) => {
-        this.form = response.data;
+        const data = response.data;
+        this.form.id = data.id;
+        this.form.date = data.date;
+        this.form.type = data.type;
+        this.form.category = data.category;
+        this.form.amount = data.amount;
+        this.form.memo = data.memo;
         this.formattedAmount = this.form.amount.toLocaleString();
         this.updateCategories();
       });
@@ -122,7 +129,9 @@ export default {
         this.form.type === 'income'
           ? this.incomeCategories
           : this.expenseCategories;
-      this.form.category = this.categories[0];
+      if (!this.categories.includes(this.form.category)) {
+        this.form.category = this.categories[0];
+      }
     },
     formatAmount() {
       let amount = this.formattedAmount.replace(/[^\d.]/g, '');
@@ -137,35 +146,35 @@ export default {
 <style scoped>
 label {
   display: block;
-  margin-bottom: 10px;
+  margin-bottom: 10px; /* Adjusted margin for uniform spacing */
 }
 input,
 select,
 button {
   width: 100%;
   padding: 10px;
-  margin-top: 10px;
+  margin-top: 10px; /* Adjusted margin for uniform spacing */
   box-sizing: border-box;
 }
 button {
-  background-color: #27ae60;
+  background-color: #776264;
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  margin-top: 20px;
+  margin-top: 20px; /* Ensure button has a consistent margin */
 }
 button:hover {
-  background-color: #2ecc71;
+  background-color: #776264;
 }
 .cancel-button {
-  background-color: #ffffff;
-  color: #000000;
-  border: 1px solid #000000;
-  padding: 5px 10px;
-  cursor: pointer;
+  background-color: #ffffff; /* 하얀 배경 */
+  color: #000000; /* 검은 텍스트 */
+  border: 1px solid #000000; /* 검은 테두리 */
+  padding: 5px 10px; /* 내부 여백 */
+  cursor: pointer; /* 마우스 오버 시 커서 모양 */
 }
 .cancel-button:hover {
-  background-color: #dddddd;
+  background-color: #dddddd; /* 마우스 오버 시 배경색 변경 */
 }
 </style>
