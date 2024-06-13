@@ -53,7 +53,7 @@
               "
               class="circle"
             >
-              Challenge Success
+              <i class="fa-solid fa-thumbs-up"></i>&nbsp;성공
             </div>
             <!-- 여기에 추가 -->
           </td>
@@ -249,20 +249,13 @@ th {
   bottom: 5px;
 }
 .circle {
-  width: fit-content; /* 내용에 맞게 넓이 설정 */
-  height: fit-content; /* 내용에 맞게 높이 설정 */
   position: absolute;
-  color: rgb(101, 153, 22); /* 텍스트 색상 */
-  top: 50%; /* 상대적 위치에서 중앙 정렬 */
-  left: 50%; /* 상대적 위치에서 중앙 정렬 */
-  transform: translate(-50%, -50%); /* 중앙 정렬을 위한 transform */
-  display: flex; /* 내부 컨텐츠 정렬을 위한 flex 사용 */
-  justify-content: center; /* 내부 컨텐츠 가운데 정렬 */
-  align-items: center;
+  top: 5px;
+  right: 10px; /* 오른쪽으로 떨어진 거리 조정 */
   font-size: small;
-  border: 2px solid rgb(101, 153, 22); /* 검정색 테두리 */
-  border-radius: 50%;
-  padding: 15px 10px;
-  /* color: white; */
+  background-color: rgb(255, 204, 0); /* 배경색 불투명도 50% */
+  z-index: -1; /* 맨 뒤로 보내기 */
+  padding: 3px 8px; /* 내부 여백 조정 */
+  border-radius: 5px; /* 둥근 모서리 적용 */
 }
 </style>
