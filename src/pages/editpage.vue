@@ -85,7 +85,7 @@ export default {
     },
     navigateToHome() {
       // HomeView 페이지로 이동하는 코드를 작성합니다.
-      this.$router.push('/'); // Vue Router를 사용하는 경우
+      this.$router.back(); // Vue Router를 사용하는 경우
     },
     addTransaction() {
       const amountWithoutCommas = this.formattedAmount.replace(/,/g, '');

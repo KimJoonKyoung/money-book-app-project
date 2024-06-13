@@ -1,7 +1,7 @@
 <template>
   <div class="calendar">
     <div class="header">
-      <h1>{{ months[selectedMonth] }} {{ selectedYear }}</h1>
+      <h1>{{ selectedYear }}년 {{ months[selectedMonth] }}</h1>
     </div>
     <div class="controls">
       <select v-model="selectedYear" @change="updateCalendar">

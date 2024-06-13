@@ -102,6 +102,5 @@ export default {
 .active {
   background-color: white;
   border-radius: 20px;
-  font-weight: bold;
 }
 </style>
