@@ -26,6 +26,23 @@ import ProfileSidebar from './components/ProfileSidebar.vue';
   margin-right: 100px;
   margin-left: 100px;
   box-sizing: border-box; /* 패딩과 보더의 크기를 포함하여 계산 */
-  overflow: auto; /* 메인 콘텐츠가 넘칠 경우 스크롤 */
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative; /* Ensure relative positioning for absolute child */
+}
+
+.main-content::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('/image/img3.jpg'); /* Specify your background image URL */
+  background-size: 75%; /* Adjust to cover the entire area */
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.1; /* Light opacity for watermark effect */
+  z-index: -1; /* Ensure it stays behind the content */
 }
 </style>

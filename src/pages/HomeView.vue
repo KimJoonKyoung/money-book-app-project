@@ -3,6 +3,7 @@
     <!-- CalendarComponent를 먼저 import하여 사용 -->
     <CalendarComponent :year="selectedYear" :month="selectedMonth" />
   </div>
+  <br />
 </template>
 
 <script>

@@ -17,14 +17,6 @@
       "memo": "점심값"
     },
     {
-      "id": "25dd",
-      "date": "2024-06-22",
-      "type": "expense",
-      "category": "식비",
-      "amount": 50000,
-      "memo": "저녁값"
-    },
-    {
       "id": "91e6",
       "date": "2024-06-03",
       "type": "income",
@@ -170,6 +162,6 @@
     }
   ],
   "user": {
-    "username": "213"
+    "username": "1234"
   }
 }

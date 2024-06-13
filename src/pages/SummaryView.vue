@@ -23,28 +23,22 @@
       </div>
     </div>
     <!-- Summary Title -->
-    <h1 class="summary-title">Summary View</h1>
+
     <!-- Total Income and Expense section -->
     <div class="totals-container">
       <a href="#incomelist" class="summary-section total-income-section">
         <h3>총 수입</h3>
-        <div class="total-amount">
-          {{ totalIncome.toLocaleString() }}
-        </div>
+        <div class="total-amount">{{ totalIncome.toLocaleString() }} 원</div>
       </a>
       <a href="#expenselist" class="summary-section total-expense-section">
         <h3>총 지출</h3>
-        <div class="total-amount">
-          {{ totalExpense.toLocaleString() }}
-        </div>
+        <div class="total-amount">{{ totalExpense.toLocaleString() }} 원</div>
       </a>
     </div>
     <div class="balance-container">
       <div class="summary-section total-balance-section">
         <h3>잔액</h3>
-        <div class="total-amount">
-          {{ totalBalance.toLocaleString() }}
-        </div>
+        <div class="total-amount">{{ totalBalance.toLocaleString() }} 원</div>
       </div>
     </div>
     <!-- Income Table -->
@@ -176,6 +170,7 @@
       </div>
     </div>
   </div>
+  <br />
 </template>
 
 <script>
@@ -252,12 +247,12 @@ export default {
       const firstDayOfMonth = new Date(
         today.getFullYear(),
         today.getMonth(),
-        1
+        2
       );
       const lastDayOfMonth = new Date(
         today.getFullYear(),
         today.getMonth() + 1,
-        0
+        1
       );
       this.startDate = firstDayOfMonth.toISOString().split('T')[0];
       this.endDate = lastDayOfMonth.toISOString().split('T')[0];

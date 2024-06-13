@@ -46,11 +46,18 @@
         <tbody>
           <tr v-for="(item, index) in displayedItems" :key="item.id">
             <td>{{ item.date }}</td>
-            <td>{{ item.type === 'income' ? '수입' : '지출' }}</td>
+            <td
+              :class="{
+                'income-type': item.type === 'income',
+                'expense-type': item.type === 'expense',
+              }"
+            >
+              {{ item.type === 'income' ? '수입' : '지출' }}
+            </td>
             <td>{{ item.category }}</td>
             <td>{{ item.memo }}</td>
-            <td>{{ formatNumber(item.amount) }}</td>
-            <td>{{ formatNumber(item.balance) }}</td>
+            <td>{{ formatNumber(item.amount) }} 원</td>
+            <td>{{ formatNumber(item.balance) }} 원</td>
             <td>
               <div class="button-container">
                 <router-link :to="{ name: 'Update', params: { id: item.id } }">
@@ -94,6 +101,7 @@
       </button>
     </div>
   </div>
+  <br />
 </template>
 
 <script>
@@ -311,10 +319,16 @@ export default {
       this.currentPage = this.totalPages;
     },
     exportToExcel() {
-      // 필터링된 항목을 엑셀 파일로 내보내기
+      if (!this.excelFileName.trim()) {
+        // Trim the filename and check if it's empty
+        window.alert('파일 이름을 입력하세요.'); // Show popup alert
+        return; // Stop further execution
+      }
+
+      // Proceed with exporting to Excel
       const filteredData = this.filteredItems.map((item) => {
-        const { id, ...rest } = item; // id 값을 제외한 나머지 속성들을 추출
-        return rest; // id 값이 제외된 객체 반환
+        const { id, ...rest } = item;
+        return rest;
       });
       const worksheet = XLSX.utils.json_to_sheet(filteredData);
       const workbook = XLSX.utils.book_new();
@@ -368,7 +382,6 @@ export default {
 .table-container tr:nth-child(even) {
   background-color: #f2f2f2;
 }
-
 .pagination {
   margin-top: 20px;
   text-align: center;
@@ -394,5 +407,15 @@ export default {
   display: flex;
   gap: 8px;
   justify-content: center;
+}
+.income-type {
+  color: blue; /* 글자색 */
+  padding: 5px 10px; /* 내부 여백 */
+  border-radius: 5px; /* 모서리 둥글게 */
+}
+.expense-type {
+  color: red; /* 글자색 */
+  padding: 5px 10px; /* 내부 여백 */
+  border-radius: 5px; /* 모서리 둥글게 */
 }
 </style>
