@@ -6,8 +6,7 @@
       "type": "income",
       "category": "월급",
       "amount": 3000000,
-      "memo": "6월 월급",
-      "balance": ""
+      "memo": "6월 월급"
     },
     {
       "id": "2",
@@ -37,7 +36,7 @@
       "id": "8498",
       "date": "2024-06-20",
       "type": "expense",
-      "category": "주거, 통신",
+      "category": "주거",
       "amount": 300000,
       "memo": "월세"
     },
@@ -45,7 +44,7 @@
       "id": "58c4",
       "date": "2024-06-21",
       "type": "expense",
-      "category": "주거, 통신",
+      "category": "통신",
       "amount": 50000,
       "memo": "통신비"
     },
@@ -56,14 +55,6 @@
       "category": "기타",
       "amount": 500,
       "memo": "주움"
-    },
-    {
-      "id": "7db4",
-      "date": "2024-06-27",
-      "type": "income",
-      "category": "용돈",
-      "amount": 5000,
-      "memo": "용돈"
     },
     {
       "id": "704a",
@@ -138,18 +129,10 @@
       "memo": "수당"
     },
     {
-      "id": "a6ab",
-      "date": "2024-06-23",
-      "type": "expense",
-      "category": "교통",
-      "amount": 7890,
-      "memo": "택시비"
-    },
-    {
       "id": "0d73",
       "date": "2024-06-21",
       "type": "expense",
-      "category": "주거, 통신",
+      "category": "주거",
       "amount": 76430,
       "memo": "관리비"
     },
@@ -162,14 +145,6 @@
       "memo": "보너스"
     },
     {
-      "id": "80ac",
-      "date": "2024-06-25",
-      "type": "expense",
-      "category": "적금",
-      "amount": 35000,
-      "memo": "6월 적금"
-    },
-    {
       "id": "bdc0",
       "date": "2024-06-15",
       "type": "income",
@@ -178,31 +153,23 @@
       "memo": "삥"
     },
     {
-      "id": "bd8b",
-      "date": "2024-06-27",
-      "type": "income",
-      "category": "용돈",
-      "amount": 800,
-      "memo": "감사"
-    },
-    {
       "id": "60db",
       "date": "2024-06-20",
       "type": "expense",
       "category": "기타",
-      "amount": 1000,
+      "amount": 100000,
       "memo": "삥뜯김"
     },
     {
-      "id": "4fa2",
-      "date": "2024-06-27",
+      "id": "89b0",
+      "date": "2024-06-20",
       "type": "expense",
-      "category": "문화생활",
-      "amount": 15000,
-      "memo": "영화"
+      "category": "주거",
+      "amount": 51000,
+      "memo": "월세"
     }
   ],
   "user": {
-    "username": "asds"
+    "username": "213"
   }
 }
