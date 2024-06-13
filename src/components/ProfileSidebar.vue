@@ -1,11 +1,4 @@
 <template>
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-    integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
-    crossorigin="anonymous"
-    referrerpolicy="no-referrer"
-  />
   <div class="sidebar-right">
     <div class="profile">
       <img
@@ -23,8 +16,13 @@
           :key="index"
           :alt="'Profile Image ' + (index + 1)"
           @click="changeProfileImage(image)"
+          class="profile-option"
         />
       </div>
+    </div>
+    <div class="text-display">
+      <p>수입: {{ formattedTotalIncome }}</p>
+      <p>지출: {{ formattedTotalExpense }}</p>
     </div>
     <div class="fixed-button-container-bottom">
       <router-link to="/edit">
@@ -37,50 +35,82 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import { useUserStore } from '@/stores';
+import axios from 'axios';
+
 const userStore = useUserStore();
-const defaultProfile = '/assets/coli.png'; // 기본 프로필 이미지
+const defaultProfile = '/assets/coli.png';
 const profileCandidates = [
-  // 프로필 후보 이미지
   '/assets/argar.png',
   '/assets/runa.png',
   '/assets/coli.png',
   '/assets/bibi.png',
   '/assets/ramu.png',
 ];
-const selectedProfile = ref(defaultProfile); // 선택된 프로필 이미지
-const showImageOptions = ref(false); // 이미지 선택 옵션 보여주기 여부
-// 프로필 이미지 변경 함수
+
+const selectedProfile = ref(
+  localStorage.getItem('selectedProfile') || defaultProfile
+);
+const showImageOptions = ref(false);
+const totalIncome = ref(parseInt(localStorage.getItem('totalIncome')) || 0);
+const totalExpense = ref(parseInt(localStorage.getItem('totalExpense')) || 0);
+
+onMounted(async () => {
+  await userStore.fetchUsername();
+  fetchData();
+});
+
+const fetchData = async () => {
+  try {
+    const response = await axios.get('./db.json');
+    const data = response.data.budget || [];
+
+    totalIncome.value = calculateTotal(data, 'income');
+    totalExpense.value = calculateTotal(data, 'expense');
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+};
+
+const calculateTotal = (data, type) => {
+  return data
+    .filter((item) => item.type === type)
+    .reduce((acc, item) => acc + item.amount, 0);
+};
+
 const changeProfileImage = (image) => {
   selectedProfile.value = image;
+  localStorage.setItem('selectedProfile', image);
   showImageOptions.value = false;
 };
-// 프로필 이미지 선택 옵션 열기/닫기 함수
+
 const openProfileImageOptions = () => {
   showImageOptions.value = !showImageOptions.value;
 };
-onMounted(async () => {
-  await userStore.fetchUsername();
-});
+
+const formattedTotalIncome = computed(
+  () => totalIncome.value.toLocaleString() + ' 원'
+);
+const formattedTotalExpense = computed(
+  () => totalExpense.value.toLocaleString() + ' 원'
+);
 </script>
 
 <style scoped>
 .sidebar-right {
   width: 200px;
   height: 100vh;
-  background-color: #ffcc00; /* KB 국민은행의 전통 노란색 */
+  background-color: #ffcc00;
   color: black;
   padding: 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center; /* 중앙 정렬 */
+  align-items: center;
   position: fixed;
   right: 0;
-
   box-sizing: border-box;
-
   z-index: 1;
 }
 
@@ -96,21 +126,24 @@ onMounted(async () => {
   border-radius: 50%;
   margin-bottom: 10px;
   cursor: pointer;
-  border: 2px solid white; /* 흰색 테두리 추가 */
+  border: 2px solid white;
 }
+
 .image-options {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   margin-top: 10px;
 }
-.image-options img {
+
+.profile-option {
   width: 50px;
   height: 50px;
   border-radius: 50%;
   margin: 5px;
   cursor: pointer;
 }
+
 .fixed-button-container-bottom {
   width: 100%;
   display: flex;
@@ -131,8 +164,14 @@ onMounted(async () => {
 .add-button:hover {
   background-color: #0056b3;
 }
+
 .sub-text {
   font-size: 10px;
   color: gray;
+}
+
+.text-display {
+  text-align: center;
+  margin-bottom: 50px;
 }
 </style>

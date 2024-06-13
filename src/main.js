@@ -6,6 +6,7 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { faMoneyBillWave, faReceipt } from '@fortawesome/free-solid-svg-icons';
 import 'bootstrap/dist/css/bootstrap.css';
+import './main.css';
 // FontAwesome 아이콘을 라이브러리에 추가합니다.
 library.add(faMoneyBillWave, faReceipt);
 const app = createApp(App);

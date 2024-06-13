@@ -1,6 +1,6 @@
 <template>
   <div class="loading-container">
-    <h1>KB 국민은행 가계부</h1>
+    <h1 class="black-han-sans-regular">KB 국민은행 가계부</h1>
     <button @click="goToLogin">로그인</button>
   </div>
 </template>
@@ -12,6 +12,12 @@ const goToLogin = () => {
 };
 </script>
 <style scoped>
+/* 가계부 폰트 별도 지정 */
+.black-han-sans-regular {
+  font-family: 'Black Han Sans', sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
 .loading-container {
   position: fixed;
   top: 0;

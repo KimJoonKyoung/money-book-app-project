@@ -1,6 +1,7 @@
 <template>
   <div class="login-container">
-    <h1>로그인</h1>
+    <!-- 로그인 폰트 별도 지정 -->
+    <h1 class="black-han-sans-regular">로그인</h1>
     <form @submit.prevent="login">
       <input type="text" v-model="username" placeholder="사용자 이름" />
       <br />
@@ -30,6 +31,12 @@ const login = async () => {
 };
 </script>
 <style scoped>
+/* 폰트 스콥 지정 */
+.black-han-sans-regular {
+  font-family: 'Black Han Sans', sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
 .login-container {
   position: fixed;
   top: 0;
@@ -41,6 +48,7 @@ const login = async () => {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  text-align: center; /* Add this line */
   z-index: 9999;
 }
 .login-form {
@@ -62,6 +70,10 @@ button {
   cursor: pointer;
 }
 button:hover {
-  background-color: #0056b3;
+  background-color: #776264;
+  color: #fff;
+  transform: scale(1.05); /* 마우스를 올렸을 때 버튼이 약간 커지도록 합니다 */
+  border: 2px solid white; /* 호버시 흰색 테두리 추가 */
+  border-radius: 10px;
 }
 </style>

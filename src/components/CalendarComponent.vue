@@ -18,13 +18,13 @@
     <table>
       <thead>
         <tr>
-          <th>Sun</th>
-          <th>Mon</th>
-          <th>Tue</th>
-          <th>Wed</th>
-          <th>Thu</th>
-          <th>Fri</th>
-          <th>Sat</th>
+          <th>일</th>
+          <th>월</th>
+          <th>화</th>
+          <th>수</th>
+          <th>목</th>
+          <th>금</th>
+          <th>토</th>
         </tr>
       </thead>
       <tbody>
@@ -38,15 +38,24 @@
             <div class="day-number">{{ day }}</div>
             <!-- 해당 날짜에 대한 수입과 지출 데이터 표시 -->
             <div
-              v-if="day && budget.length > 0"
+              v-if="day && getIncome(day)"
               class="income"
               v-html="getIncome(day)"
             ></div>
             <div
-              v-if="day && budget.length > 0"
+              v-if="day && getExpense(day)"
               class="expenses"
               v-html="getExpense(day)"
             ></div>
+            <div
+              v-if="
+                day && !getIncome(day) && !getExpense(day) && isPastDate(day)
+              "
+              class="circle"
+            >
+              Challenge Success
+            </div>
+            <!-- 여기에 추가 -->
           </td>
         </tr>
       </tbody>
@@ -81,6 +90,7 @@ export default {
       ],
       selectedDay: null,
       budget: [],
+      today: new Date(), // 현재 날짜
     };
   },
   mounted() {
@@ -125,10 +135,14 @@ export default {
     },
     selectDay(weekIndex, dayIndex) {
       const selectedDay = this.weeks[weekIndex][dayIndex];
-      if (selectedDay) {
+      if (selectedDay && this.isPastDate(selectedDay)) {
         this.selectedDay = { weekIndex, dayIndex, day: selectedDay };
         console.log(`Selected day: ${this.selectedDay.day}`);
       }
+    },
+    isPastDate(day) {
+      const date = new Date(this.selectedYear, this.selectedMonth, day);
+      return date <= this.today; // 오늘 날짜 이후의 날짜인지 확인
     },
     updateCalendar() {
       console.log('Updating calendar...'); // 업데이트 확인용 로그
@@ -190,13 +204,12 @@ table {
   width: 100%;
   border-collapse: collapse;
 }
-th,
 td {
   width: 14.28%; /* 7개의 열이므로 100%를 7로 나눈 값 */
   height: 100px; /* 칸의 높이를 설정하세요 */
   border: 1px solid #ddd;
   position: relative;
-  vertical-align: top; /* 날짜를 칸의 상단에 배치 */
+  vertical-align: top;
 }
 th {
   background-color: #f2f2f2;
@@ -204,35 +217,52 @@ th {
   height: 30px; /* 칸의 높이를 설정하세요 */
   border: 1px solid #ddd;
   position: relative;
-  vertical-align: top; /* 날짜를 칸의 상단에 배치 */
+  vertical-align: top;
 }
 .day-cell {
   font-size: 1.2rem;
   font-weight: bold;
   cursor: pointer;
+  position: relative;
+  padding-top: 5px;
+  box-sizing: border-box;
 }
 .day-number {
   position: absolute;
   top: 5px;
   left: 5px;
 }
-/* 기존 스타일은 생략합니다 */
-.income {
-  color: blue; /* 수입을 파란색으로 설정 */
-  margin-top: 20px;
+.income,
+.expenses {
   font-size: small;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 50%;
+  position: absolute;
+  bottom: 5px;
+  left: 5px;
+  right: 5px;
+}
+.income {
+  color: blue;
+  bottom: 35px; /* 지출 요소의 높이 + 간격을 고려하여 위치 지정 */
 }
 .expenses {
-  color: red; /* 지출을 빨간색으로 설정 */
-  margin-top: 20px;
-  font-size: small;
-  display: flex;
-  justify-content: center;
+  color: red;
+  bottom: 5px;
+}
+.circle {
+  width: fit-content; /* 내용에 맞게 넓이 설정 */
+  height: fit-content; /* 내용에 맞게 높이 설정 */
+  position: absolute;
+  color: rgb(101, 153, 22); /* 텍스트 색상 */
+  top: 50%; /* 상대적 위치에서 중앙 정렬 */
+  left: 50%; /* 상대적 위치에서 중앙 정렬 */
+  transform: translate(-50%, -50%); /* 중앙 정렬을 위한 transform */
+  display: flex; /* 내부 컨텐츠 정렬을 위한 flex 사용 */
+  justify-content: center; /* 내부 컨텐츠 가운데 정렬 */
   align-items: center;
-  height: 0;
+  font-size: small;
+  border: 2px solid rgb(101, 153, 22); /* 검정색 테두리 */
+  border-radius: 50%;
+  padding: 15px 10px;
+  /* color: white; */
 }
 </style>

@@ -1,4 +1,5 @@
 <template>
+  <h1 class="title">요약</h1>
   <div class="summary-container">
     <!-- Date Range Selector -->
     <div class="date-range-selector">
@@ -37,6 +38,14 @@
           {{ totalExpense.toLocaleString() }}
         </div>
       </a>
+    </div>
+    <div class="balance-container">
+      <div class="summary-section total-balance-section">
+        <h3>잔액</h3>
+        <div class="total-amount">
+          {{ totalBalance.toLocaleString() }}
+        </div>
+      </div>
     </div>
     <!-- Income Table -->
     <div id="incomelist" class="table-container">
@@ -197,6 +206,9 @@ export default {
       // 총 지출 계산
       return this.expenseItems.reduce((total, item) => total + item.amount, 0);
     },
+    totalBalance() {
+      return this.totalIncome - this.totalExpense;
+    },
     incomeTotalPages() {
       // 수입 페이지 수 계산
       return Math.ceil(this.incomeItems.length / this.itemsPerPage);
@@ -356,6 +368,9 @@ export default {
 </script>
 
 <style>
+.title {
+  text-align: center;
+}
 .summary-container {
   display: flex;
   flex-direction: column;
@@ -379,6 +394,12 @@ export default {
   margin-bottom: 20px;
   width: 100%;
 }
+.balance-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 20px;
+}
 .summary-section {
   text-align: center;
   border: 1px solid #ddd;
@@ -386,14 +407,24 @@ export default {
   flex: 1;
   text-decoration: none; /* 추가: 앵커 태그의 기본 스타일 제거 */
   color: inherit; /* 추가: 텍스트 색상 상속 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .total-income-section {
   background-color: blue;
-  color: #ddd;
+  color: #ffffff;
 }
 .total-expense-section {
   background-color: crimson;
-  color: #ddd;
+  color: #ffffff;
+}
+.total-balance-section {
+  background-color: green;
+  color: #ffffff;
+}
+.total-balance {
+  font-size: 24px;
 }
 .total-amount {
   font-size: 24px;

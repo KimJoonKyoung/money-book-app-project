@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h1>List View</h1>
+    <h1>목록</h1>
     <br />
     <div id="tablefilter">
       <label for="startDateFilter">시작 날짜:</label>&nbsp;
@@ -16,7 +16,9 @@
       <label for="typeFilter">타입:</label>&nbsp;
       <select id="typeFilter" v-model="selectedType" @change="updateCategories">
         <option value="">전체</option>
-        <option v-for="type in types" :value="type">{{ type }}</option></select
+        <option v-for="type in types" :value="type.value">
+          {{ type.label }}
+        </option></select
       >&nbsp;&nbsp;
 
       <label for="categoryFilter">카테고리:</label>&nbsp;
@@ -113,7 +115,8 @@ export default {
       expenseCategories: [
         '식비',
         '교통',
-        '주거, 통신',
+        '주거',
+        '통신',
         '문화생활',
         '쇼핑',
         '적금',
@@ -171,7 +174,13 @@ export default {
     },
     // 추가: 유니크한 타입 값 추출
     types() {
-      return [...new Set(this.items.map((item) => item.type))];
+      const uniqueTypes = [...new Set(this.items.map((item) => item.type))];
+      return uniqueTypes.map((type) => {
+        return {
+          value: type,
+          label: type === 'income' ? '수입' : '지출',
+        };
+      });
     },
     filteredCategories() {
       return this.selectedType === 'income'
@@ -330,12 +339,10 @@ export default {
   flex-direction: column; /* 자식 요소들을 세로로 정렬하기 위해 */
   align-items: center; /* 자식 요소들을 수직으로 가운데 정렬 */
 }
-
 .tablefilter,
 .excel-button {
   margin-bottom: 20px; /* 각 요소들 사이의 간격을 조절합니다. */
 }
-
 .table-wrapper {
   display: flex;
   justify-content: center;
@@ -345,19 +352,19 @@ export default {
   width: 100%;
   border-collapse: collapse;
 }
-
-.table-container th,
-.table-container td {
+.table-container th {
   border: 1px solid #ddd;
   padding: 8px;
-}
-
-.table-container th,
-.table-container td {
   background-color: #f2f2f2;
   text-align: center;
 }
+.table-container td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
 
+/* 짝수 번째 행 배경색 지정 */
 .table-container tr:nth-child(even) {
   background-color: #f2f2f2;
 }
@@ -367,7 +374,6 @@ export default {
   text-align: center;
   justify-content: center;
 }
-
 .pagination button {
   margin: 0 5px;
 }
@@ -379,7 +385,6 @@ export default {
   margin: 0 2px; /* 페이지 번호 간격 */
   cursor: pointer; /* 페이지 번호 커서 */
 }
-
 .page-number.active {
   background-color: #007bff; /* 현재 페이지 배경색 */
   color: #ffffff; /* 현재 페이지 글자색 */

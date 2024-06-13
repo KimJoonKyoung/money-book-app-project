@@ -66,7 +66,8 @@ export default {
       expenseCategories: [
         '식비',
         '교통',
-        '주거, 통신',
+        '주거',
+        '통신',
         '문화생활',
         '쇼핑',
         '적금',
