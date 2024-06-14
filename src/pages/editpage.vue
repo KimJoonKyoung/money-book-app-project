@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <h1>내용 추가 (가제)</h1>
+    <h1>내용 추가</h1>
     <form @submit.prevent="addTransaction" class="form">
       <input type="date" v-model="form.date" required class="input-field" />
       <select
