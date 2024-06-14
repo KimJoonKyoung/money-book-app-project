@@ -63,7 +63,7 @@
           >
             <td>{{ item.date }}</td>
             <td>{{ item.memo }}</td>
-            <td>{{ item.amount.toLocaleString() }}</td>
+            <td>{{ item.amount.toLocaleString() }} 원</td>
             <td>{{ item.category }}</td>
           </tr>
         </tbody>
@@ -127,7 +127,7 @@
           >
             <td>{{ item.date }}</td>
             <td>{{ item.memo }}</td>
-            <td>{{ item.amount.toLocaleString() }}</td>
+            <td>{{ item.amount.toLocaleString() }} 원</td>
             <td>{{ item.category }}</td>
           </tr>
         </tbody>
