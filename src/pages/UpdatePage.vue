@@ -44,15 +44,9 @@
 
 <script>
 import axios from 'axios';
-import DatePicker from 'vue-datepicker-next';
-import 'vue-datepicker-next/index.css';
 export default {
-  components: {
-    DatePicker,
-  },
   data() {
     return {
-      transactions: [],
       form: {
         id: '',
         date: '',
@@ -78,19 +72,13 @@ export default {
   },
   created() {
     this.fetchTransaction();
-    this.updateCategories();
   },
   methods: {
     fetchTransaction() {
       const id = this.$route.params.id;
       axios.get(`http://localhost:3000/budget/${id}`).then((response) => {
         const data = response.data;
-        this.form.id = data.id;
-        this.form.date = data.date;
-        this.form.type = data.type;
-        this.form.category = data.category;
-        this.form.amount = data.amount;
-        this.form.memo = data.memo;
+        this.form = { ...data };
         this.formattedAmount = this.form.amount.toLocaleString();
         this.updateCategories();
       });
@@ -103,24 +91,8 @@ export default {
       };
       axios
         .put(`http://localhost:3000/budget/${transaction.id}`, transaction)
-        .then((response) => {
-          this.$router.push('/list');
-        })
-        .catch((error) => {
-          console.error('Error updating transaction:', error);
-        });
-    },
-    resetForm() {
-      this.form = {
-        id: '',
-        date: '',
-        type: '',
-        category: '',
-        amount: '',
-        memo: '',
-      };
-      this.formattedAmount = '';
-      this.updateCategories();
+        .then(() => this.$router.push('/list'))
+        .catch((error) => console.error('Error updating transaction:', error));
     },
     goBack() {
       this.$router.back();
@@ -135,10 +107,8 @@ export default {
       }
     },
     formatAmount() {
-      let amount = this.formattedAmount.replace(/[^\d.]/g, '');
-      amount = parseFloat(amount);
-      if (isNaN(amount)) return;
-      this.formattedAmount = amount.toLocaleString();
+      const amount = parseFloat(this.formattedAmount.replace(/[^\d.]/g, ''));
+      if (!isNaN(amount)) this.formattedAmount = amount.toLocaleString();
     },
   },
 };
@@ -147,14 +117,14 @@ export default {
 <style scoped>
 label {
   display: block;
-  margin-bottom: 10px; /* Adjusted margin for uniform spacing */
+  margin-bottom: 10px;
 }
 input,
 select,
 button {
   width: 100%;
   padding: 10px;
-  margin-top: 10px; /* Adjusted margin for uniform spacing */
+  margin-top: 10px;
   box-sizing: border-box;
 }
 button {
@@ -163,19 +133,19 @@ button {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  margin-top: 20px; /* Ensure button has a consistent margin */
+  margin-top: 20px;
 }
 button:hover {
-  background-color: #776264;
+  background-color: #6b5c5e;
 }
 .cancel-button {
-  background-color: #ffffff; /* 하얀 배경 */
-  color: #000000; /* 검은 텍스트 */
-  border: 1px solid #000000; /* 검은 테두리 */
-  padding: 5px 10px; /* 내부 여백 */
-  cursor: pointer; /* 마우스 오버 시 커서 모양 */
+  background-color: #ffffff;
+  color: #000000;
+  border: 1px solid #000000;
+  padding: 5px 10px;
+  cursor: pointer;
 }
 .cancel-button:hover {
-  background-color: #dddddd; /* 마우스 오버 시 배경색 변경 */
+  background-color: #dddddd;
 }
 </style>

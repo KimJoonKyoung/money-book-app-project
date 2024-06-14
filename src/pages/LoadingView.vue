@@ -1,7 +1,6 @@
 <template>
   <div class="loading-container">
-    <h1 class="black-han-sans-regular">KB 국민은행 가계부</h1>
-    <button @click="goToLogin">로그인</button>
+    <button @click="goToLogin" class="login-btn">로그인</button>
   </div>
 </template>
 <script setup>
@@ -12,12 +11,6 @@ const goToLogin = () => {
 };
 </script>
 <style scoped>
-/* 가계부 폰트 별도 지정 */
-.black-han-sans-regular {
-  font-family: 'Black Han Sans', sans-serif;
-  font-weight: 400;
-  font-style: normal;
-}
 .loading-container {
   position: fixed;
   top: 0;
@@ -25,15 +18,16 @@ const goToLogin = () => {
   width: 100%;
   height: 100%;
   background-color: #ffcc00;
-  background-image: url('/image/img3.jpg');
+  background-image: url('/image/img6.jpg');
   opacity: 5;
   background-size: cover; /* 배경 이미지를 컨테이너에 맞게 조절합니다 */
   background-position: center center;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
   z-index: 9999; /* 다른 요소 위에 표시되도록 설정 */
+  padding-bottom: 20px;
 }
 button {
   padding: 10px 200px;
@@ -61,5 +55,8 @@ h1 {
   color: #776264;
   font-weight: bold;
   margin-top: 8%;
+}
+.login-btn {
+  margin-bottom: 20px;
 }
 </style>
