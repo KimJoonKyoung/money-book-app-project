@@ -21,7 +21,7 @@
       </div>
     </div>
     <div class="text-display">
-      <p>가계부를 쓰고난 후 ..</p>
+      <p>가계부를 쓰고 난 후 ..</p>
       <p>수입: {{ formattedTotalIncome }}</p>
       <p>지출: {{ formattedTotalExpense }}</p>
     </div>
